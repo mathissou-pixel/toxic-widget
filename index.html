@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Dernière vidéo - Toxic GG BG</title>
+<style>
+body{
+    margin:0;
+    background:#111;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-family:Arial,sans-serif;
+}
+iframe{
+    width:100%;
+    max-width:900px;
+    aspect-ratio:16/9;
+    border:none;
+    border-radius:15px;
+}
+</style>
+</head>
+<body>
+
+<iframe id="video" allowfullscreen></iframe>
+
+<script>
+const channelId = "UCJCrMHNSlVBuvl0hZ3VauYw";
+
+fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`)
+.then(r=>r.text())
+.then(xml=>{
+    const parser=new DOMParser();
+    const doc=parser.parseFromString(xml,"text/xml");
+    const id=doc.querySelector("entry > video\\:id, entry > yt\\:videoId").textContent;
+    document.getElementById("video").src=
+    "https://www.youtube.com/embed/"+id;
+});
+</script>
+
+</body>
+</html>
